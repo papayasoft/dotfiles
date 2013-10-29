@@ -175,16 +175,19 @@ export PS1='\[\033[00;32m\]\u@\h:\[\033[00;36m\]\w\[\033[00m\]$(parse_git_branch
 
 function my-external-ip () { curl http://ipecho.net/plain; echo; }
 
-function fapi_release_notes {
+function git_release_notes {
     
     SINCE=$1
 
-    if [ -n "$SINCE" ]
-        echo "'SINCE' param is required"
-        exit 1
+    echo "$SINCE"
+    if [ -z "$SINCE" ]
+    then
+        echo "SINCE param is required. Exiting.";
+        return 1
     fi
 
     git log --oneline "$SINCE"...origin/master | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}' | grep -v "^Merge" | awk '{ print "* " $0}' | uniq
+    return 0
 }
 
 export PATH="$PATH:~/phplib/Zend/bin:/opt/vagrant/bin:~/.bin:~/Scripts"
