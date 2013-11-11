@@ -1,0 +1,77 @@
+[user]
+	name = David Weinraub
+	email = david@papayasoft.com
+[github]
+	user = papayasoft
+[core]
+	autocrlf = input
+	safecrlf = true
+	editor = vim
+	whitespace = cr-at-eol
+	excludesfile = ~/.gitignore_global
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = cyan
+
+[push]
+	# Ensure that when you `git push` only the current branch is pushed rather than all branches (why is this not the default?)
+	default           = current
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+
+        # locate commit where a particular file was introduced 
+        added-file        = log --diff-filter=A --
+
+        # list contributor stats for this repo
+        contributors      = !git shortlog -n -s --no-merges $@ | cat - && echo && echo total $(git rev-list --count HEAD)
+
+	# commit history in graph format: abbreviated commits ID, one commit per line + with commit references (like git log --decorate)
+	history = log --graph --decorate --pretty=oneline --abbrev-commit
+
+	# list commits not yet pushed to remote
+	local = log --branches --not --remotes
+
+	# markdown-friendly list of topic/branch related logs (great for Github pull requests)
+	markdown = !BN=$(git name-rev --name-only HEAD) && git log --grep=$BN --pretty=oneline | awk -F"$BN: " '{print \"-\", $NF}'
+
+	# fetch and rebase from upstream/master then push current branch to origin
+	sync = !git pull --rebase upstream master && git push -u origin +HEAD
+
+	# decorated graph view of one liner summarized commits from all branches. (inspired by git-extras)
+	logtree = log --all --graph --decorate --oneline --simplify-by-decoration
+
+	# See http://rubyglazed.com/post/15772234418/git-ify-your-command-line
+	logcolor = log --graph --full-history --all --color --pretty=format:'%x1b[31m%h%x09%x1b[32m %C(white)- %d%x1b[0m%x20%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative
+
+	l1 = log --oneline 
+
+	release-notes = "!sh -c 'git log $(git rev-parse --abbrev-ref HEAD) --no-merges --not origin/master | format-release-notes.rb' -"
+
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = true
+
+[merge]
+	#tool = mymeld
+	#conflictstyle = diff3
+
+[mergetool "mymeld"]
+	#cmd = $HOME/.bin/gitmerge-via-meld $BASE $LOCAL $REMOTE $MERGED
+
+
