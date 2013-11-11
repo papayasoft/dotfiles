@@ -179,11 +179,13 @@ function git_release_notes {
     SINCE=$1
     if [ -z "$SINCE" ]
     then
-        echo "SINCE param is required. Exiting.";
+        echo "SINCE param is required.";
+        echo "Usage: git_release_notes <last-release-tag-or-sha1>"
         return 1
     fi
-    git log --oneline "$SINCE"...origin/master | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}' | grep -v "^Merge" | awk '{ print "* " $0}' | uniq
-    return 0
+    git log --oneline --reverse "$SINCE"...origin/master | uniq | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}' | grep -v "^Merge" | awk '{ print "* " $0}' | sed 's/^\* \(.*\)\[otf: \(.*\)\]/* (OTF \2) \1/'
+    # git log --oneline "$SINCE"...origin/master | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}' | grep -v "^Merge" | awk '{ print "* " $0}' | uniq
+    return $?
 }
 
 export PATH="$PATH:~/phplib/Zend/bin:/opt/vagrant/bin:~/.bin:~/Scripts"
