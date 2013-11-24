@@ -193,7 +193,7 @@ export PATH="$PATH:~/phplib/Zend/bin:/opt/vagrant/bin:~/.bin:~/Scripts"
 export EDITOR=vim
 export SVN_EDITOR=vim
 
-export FAPI_USER="david"
+# export FAPI_USER="david"
 
 export FAPIGET_CONFIG_PATH="/home/david/fapi-get.config.php"
 export FAPI_PR_HUB_PATH='/home/david/.bin/hub'
