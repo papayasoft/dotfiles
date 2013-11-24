@@ -159,7 +159,7 @@ fi
 #    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 #}
 function parse_git_dirty { 
-    if [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]]; then 
+    if [[ -z $(git status 2> /dev/null | tail -n1 | grep "nothing to commit.\+working directory clean") ]]; then 
         echo "*" 
     elif (( $(git status 2> /dev/null | grep 'Your branch is ahead of' | wc -l) != 0 )); then
 	echo "+"
