@@ -190,6 +190,7 @@ function git_release_notes {
 
 export PATH="$PATH:~/phplib/Zend/bin:/opt/vagrant/bin:~/.bin:~/Scripts"
 #export RUBYOPT=rubygems 
+export EDITOR=vim
 export SVN_EDITOR=vim
 
 export FAPI_USER="david"
