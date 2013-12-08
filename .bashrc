@@ -195,7 +195,7 @@ export SVN_EDITOR=vim
 
 # export FAPI_USER="david"
 
-export FAPIGET_CONFIG_PATH="~/fapi-get.config.php"
+export FAPIGET_CONFIG_PATH="`echo $HOME`/fapi-get.config.php"
 export FAPI_PR_HUB_PATH='~/.bin/hub'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
